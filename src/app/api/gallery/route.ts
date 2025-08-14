@@ -1,6 +1,6 @@
-import fs from 'fs';
-import path from 'path';
 import { NextRequest, NextResponse } from 'next/server';
+import { join } from 'path';
+import { readdir } from 'fs/promises';
 
 export async function GET(request: NextRequest) {
   try {
@@ -11,22 +11,26 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Folder parameter required' }, { status: 400 });
     }
     
-    const fullPath = path.join(process.cwd(), 'public', 'gallery', folder);
+    const fullPath = join(process.cwd(), 'public', 'gallery', folder);
     
-    if (!fs.existsSync(fullPath)) {
+    try {
+      const files = await readdir(fullPath);
+      if (!files.length) {
+        return NextResponse.json([]);
+      }
+    
+      const imageExtensions = ['.jpg', '.jpeg', '.png','.webp','.HEIC', '.JPG'];
+      const imageFiles = files.filter(file => 
+        imageExtensions.some(ext => file.toLowerCase().endsWith(ext))
+      );
+      
+      const imagePaths = imageFiles.map(file => `/gallery/${folder}/${file}`);
+      
+      return NextResponse.json(imagePaths);
+    } catch (error) {
+      console.error('Error reading gallery folder:', error);
       return NextResponse.json([]);
     }
-    
-    const files = fs.readdirSync(fullPath);
-    
-    const imageExtensions = ['.jpg', '.jpeg', '.png','.webp','.HEIC', '.JPG'];
-    const imageFiles = files.filter(file => 
-      imageExtensions.some(ext => file.toLowerCase().endsWith(ext))
-    );
-    
-    const imagePaths = imageFiles.map(file => `/gallery/${folder}/${file}`);
-    
-    return NextResponse.json(imagePaths);
   } catch (error) {
     console.error('Error reading gallery folder:', error);
     return NextResponse.json([]);

@@ -164,6 +164,7 @@ const GalleryScroll = ({ images = [] as string[], height = "h-56", description =
                   draggable={false}
                   style={{ objectPosition: 'center' }}
                   sizes="95vw"
+                  loading="eager"
                   quality={100}
                 />
               </div>

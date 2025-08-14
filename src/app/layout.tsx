@@ -4,7 +4,7 @@ import Navbar from "./components/Navbar";
 import { ThemeProvider } from "@/context/ThemeContext";
 
 export const metadata: Metadata = {
-  title: "Andrew Shota Tsai Portfolio",
+  title: "Andrew Shota Tsai",
   description: "Portfolio website for Andrew Shota Tsai",
 };
 

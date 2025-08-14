@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 
-const GalleryScroll = ({ images = [] as string[], height = "h-56", description = "Gallery" }: { images?: string[]; height?: string; description?: string; }) => {
+const GalleryScroll = ({ images, height = "h-56", description = "Gallery" }: { images: { src: string; blurDataURL: string }[]; height?: string; description?: string; }) => {
     const ref = useRef<HTMLDivElement>(null);
     const isDragging = useRef(false);
     const startX = useRef(0);
@@ -9,7 +9,7 @@ const GalleryScroll = ({ images = [] as string[], height = "h-56", description =
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
     const [imageAspectRatio, setImageAspectRatio] = useState<number>(1);
 
-    const tripled = [...images, ...images, ...images];
+    const doubled = [...images, ...images];
 
     useEffect(() => {
     const el = ref.current;
@@ -30,12 +30,12 @@ const GalleryScroll = ({ images = [] as string[], height = "h-56", description =
       const walk = (x - startX.current) * 1.5;
       el.scrollLeft = scrollLeft.current - walk;
       
-      const sectionWidth = el.scrollWidth / 3;
+      const sectionWidth = el.scrollWidth / 2;
       if (el.scrollLeft <= 0) {
-        el.scrollLeft = sectionWidth * 2;
-        scrollLeft.current = sectionWidth * 2;
+        el.scrollLeft = sectionWidth;
+        scrollLeft.current = sectionWidth;
         startX.current = e.pageX - el.offsetLeft;
-      } else if (el.scrollLeft >= sectionWidth * 2) {
+      } else if (el.scrollLeft >= sectionWidth) {
         el.scrollLeft = 0;
         scrollLeft.current = 0;
         startX.current = e.pageX - el.offsetLeft;
@@ -45,9 +45,9 @@ const GalleryScroll = ({ images = [] as string[], height = "h-56", description =
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault();
       el.scrollLeft += e.deltaY;
-      const sectionWidth = el.scrollWidth / 3;
-      if (el.scrollLeft <= 0) el.scrollLeft = sectionWidth * 2;
-      else if (el.scrollLeft >= sectionWidth * 2) el.scrollLeft = 0;
+      const sectionWidth = el.scrollWidth / 2;
+      if (el.scrollLeft <= 0) el.scrollLeft = sectionWidth;
+      else if (el.scrollLeft >= sectionWidth) el.scrollLeft = 0;
     };
 
     el.addEventListener("mousedown", handleMouseDown);
@@ -112,22 +112,23 @@ const GalleryScroll = ({ images = [] as string[], height = "h-56", description =
         </div>
         <div ref={ref} className="relative min-h-[${height}] min-w-[${height}] rounded-2xl shadow-2xl bg-[var(--color-light)] dark:bg-[var(--color-dark)] transition-colors p-3 overflow-x-scroll cursor-grab active:cursor-grabbing" style={{scrollbarWidth: 'none', msOverflowStyle: 'none'}}>
           <div className="flex gap-3">
-            {tripled.map((src, i) => (
+            {doubled.map((img, i) => (
               <div 
                 key={i} 
                 className={`flex-shrink-0 rounded-2xl min-w-[40vh] min-h-[50vh] overflow-hidden h- [${height}] relative cursor-pointer hover:shadow-lg transition-shadow duration-200`} 
                 style={{ aspectRatio: 'auto' }}
-                onClick={() => handleImageClick(src)}
+                onClick={() => handleImageClick(img.src)}
               >
                 <Image 
-                  src={src} 
+                  src={img.src} 
                   alt={`gallery-${i}`} 
                   fill
                   className="object-cover hover:scale-105 transition-transform duration-200" 
-                  loading="lazy" 
+                  placeholder="blur"
+                  blurDataURL={img.blurDataURL}
                   draggable={false}
                   style={{ objectPosition: 'center' }}
-                  quality={100}
+                  quality={90}
                 />
               </div>
             ))}

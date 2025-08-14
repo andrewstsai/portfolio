@@ -5,9 +5,9 @@ import GalleryScroll from './GalleryScroll';
 import {useEffect, useState} from 'react'
 
 export default function Gallery() {
-  const [dogImages, setDogImages] = useState<string[]>([]);
-  const [foodImages, setFoodImages] = useState<string[]>([]);
-  const [tripImages, setTripImages] = useState<string[]>([]);
+  const [dogImages, setDogImages] = useState<{ src: string; blurDataURL: string }[]>([]);
+  const [foodImages, setFoodImages] = useState<{ src: string; blurDataURL: string }[]>([]);
+  const [tripImages, setTripImages] = useState<{ src: string; blurDataURL: string }[]>([]);
 
   useEffect(() => {
     const fetchImages = async () => {

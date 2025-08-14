@@ -161,7 +161,6 @@ const GalleryScroll = ({ images = [] as string[], height = "h-56", description =
                   alt={`gallery-${i}`} 
                   fill
                   className="object-cover hover:scale-105 transition-transform duration-200" 
-                  loading="lazy" 
                   draggable={false}
                   style={{ objectPosition: 'center' }}
                   sizes="95vw"

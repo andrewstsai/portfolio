@@ -50,11 +50,45 @@ const GalleryScroll = ({ images = [] as string[], height = "h-56", description =
       else if (el.scrollLeft >= sectionWidth) el.scrollLeft = 0;
     };
 
+    const handleTouchStart = (e: TouchEvent) => {
+      isDragging.current = true;
+      const touch = e.touches[0];
+      startX.current = touch.pageX - el.offsetLeft;
+      scrollLeft.current = el.scrollLeft;
+    };
+    
+    const handleTouchEnd = () => {
+      isDragging.current = false;
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!isDragging.current) return;
+      e.preventDefault();
+      const touch = e.touches[0];
+      const x = touch.pageX - el.offsetLeft;
+      const walk = (x - startX.current) * 1.5;
+      el.scrollLeft = scrollLeft.current - walk;
+      
+      const sectionWidth = el.scrollWidth / 2;
+      if (el.scrollLeft <= 0) {
+        el.scrollLeft = sectionWidth;
+        scrollLeft.current = sectionWidth;
+        startX.current = touch.pageX - el.offsetLeft;
+      } else if (el.scrollLeft >= sectionWidth) {
+        el.scrollLeft = 0;
+        scrollLeft.current = 0;
+        startX.current = touch.pageX - el.offsetLeft;
+      }
+    };
+
     el.addEventListener("mousedown", handleMouseDown);
     el.addEventListener("mouseup", handleMouseUp);
     el.addEventListener("mouseleave", handleMouseUp);
     el.addEventListener("mousemove", handleMouseMove);
     el.addEventListener("wheel", handleWheel, { passive: false });
+    el.addEventListener("touchstart", handleTouchStart, { passive: false });
+    el.addEventListener("touchend", handleTouchEnd);
+    el.addEventListener("touchmove", handleTouchMove, { passive: false });
     el.scrollLeft = 0;
 
     return () => {
@@ -63,6 +97,9 @@ const GalleryScroll = ({ images = [] as string[], height = "h-56", description =
       el.removeEventListener("mouseleave", handleMouseUp);
       el.removeEventListener("mousemove", handleMouseMove);
       el.removeEventListener("wheel", handleWheel);
+      el.removeEventListener("touchstart", handleTouchStart);
+      el.removeEventListener("touchend", handleTouchEnd);
+      el.removeEventListener("touchmove", handleTouchMove);
     };
     }, [images]);
 
@@ -127,6 +164,7 @@ const GalleryScroll = ({ images = [] as string[], height = "h-56", description =
                   loading="lazy" 
                   draggable={false}
                   style={{ objectPosition: 'center' }}
+                  sizes="95vw"
                   quality={100}
                 />
               </div>

@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 
-const GalleryScroll = ({ images, height = "h-56", description = "Gallery" }: { images: { src: string; blurDataURL: string }[]; height?: string; description?: string; }) => {
+const GalleryScroll = ({ images = [] as string[], height = "h-56", description = "Gallery" }: { images?: string[]; height?: string; description?: string; }) => {
     const ref = useRef<HTMLDivElement>(null);
     const isDragging = useRef(false);
     const startX = useRef(0);
@@ -112,23 +112,22 @@ const GalleryScroll = ({ images, height = "h-56", description = "Gallery" }: { i
         </div>
         <div ref={ref} className="relative min-h-[${height}] min-w-[${height}] rounded-2xl shadow-2xl bg-[var(--color-light)] dark:bg-[var(--color-dark)] transition-colors p-3 overflow-x-scroll cursor-grab active:cursor-grabbing" style={{scrollbarWidth: 'none', msOverflowStyle: 'none'}}>
           <div className="flex gap-3">
-            {doubled.map((img, i) => (
+            {doubled.map((src, i) => (
               <div 
                 key={i} 
                 className={`flex-shrink-0 rounded-2xl min-w-[40vh] min-h-[50vh] overflow-hidden h- [${height}] relative cursor-pointer hover:shadow-lg transition-shadow duration-200`} 
                 style={{ aspectRatio: 'auto' }}
-                onClick={() => handleImageClick(img.src)}
+                onClick={() => handleImageClick(src)}
               >
                 <Image 
-                  src={img.src} 
+                  src={src} 
                   alt={`gallery-${i}`} 
                   fill
                   className="object-cover hover:scale-105 transition-transform duration-200" 
-                  placeholder="blur"
-                  blurDataURL={img.blurDataURL}
+                  loading="lazy" 
                   draggable={false}
                   style={{ objectPosition: 'center' }}
-                  quality={90}
+                  quality={100}
                 />
               </div>
             ))}

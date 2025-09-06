@@ -7,6 +7,9 @@ import { useGallery } from '@/hooks/useGallery';
 
 export default function Gallery() {
   const { fetchGallery, getImages } = useGallery();
+  const tripImages = getImages('trips');
+  const foodImages = getImages('food');
+  const dogImages = getImages('dog');
 
   useEffect(() => {
     const loadGallery = async () => {
@@ -22,10 +25,6 @@ export default function Gallery() {
     };
     loadGallery();
   }, [fetchGallery]);
-
-  const tripImages = useMemo(() => getImages('trips'), [getImages('trips').length]);
-  const foodImages = useMemo(() => getImages('food'), [getImages('food').length]);
-  const dogImages = useMemo(() => getImages('dog'), [getImages('dog').length]);
   
   return (
     <div className="container max-w-7xl mx-auto py-12">

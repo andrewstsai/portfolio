@@ -2,40 +2,30 @@
 
 import { motion } from 'motion/react';
 import GalleryScroll from '../components/GalleryScroll';
-import {useEffect, useState} from 'react'
+import { useEffect, useMemo } from 'react'
+import { useGallery } from '@/hooks/useGallery';
 
-export default function GalleryPage() {
-  const [dogImages, setDogImages] = useState<string[]>([]);
-  const [foodImages, setFoodImages] = useState<string[]>([]);
-  const [tripImages, setTripImages] = useState<string[]>([]);
-
+export default function Gallery() {
+  const { fetchGallery, getImages } = useGallery();
+  
   useEffect(() => {
-    const fetchImages = async () => {
+    const loadGallery = async () => {
       try {
-        const [dogRes, foodRes, tripRes] = await Promise.all([
-          fetch('/api/gallery?folder=dog'),
-          fetch('/api/gallery?folder=food'), 
-          fetch('/api/gallery?folder=trips')
+        await Promise.all([
+          fetchGallery('dog'),
+          fetchGallery('food'), 
+          fetchGallery('trips')
         ]);
-
-        const [dogData, foodData, tripData] = await Promise.all([
-          dogRes.json(),
-          foodRes.json(),
-          tripRes.json()
-        ]);
-        setDogImages(dogData || []);
-        setFoodImages(foodData || []);
-        setTripImages(tripData || []);
       } catch (error) {
-        console.error('Error fetching images:', error);
-        setDogImages([]);
-        setFoodImages([]);
-        setTripImages([]);
+        console.error('Error fetching galleries:', error);
       }
     };
+    loadGallery();
+  }, [fetchGallery]);
 
-    fetchImages();
-  }, []);
+  const tripImages = useMemo(() => getImages('trips'), [getImages('trips').length]);
+  const foodImages = useMemo(() => getImages('food'), [getImages('food').length]);
+  const dogImages = useMemo(() => getImages('dog'), [getImages('dog').length]);
   
   return (
     <div className="container max-w-7xl mx-auto py-12">

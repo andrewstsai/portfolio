@@ -32,13 +32,6 @@ export const cardHoverSmall = {
   whileHover: { scale: 1.02 },
 };
 
-export const pageTransition = {
-  initial: { opacity: 0 },
-  animate: { opacity: 1 },
-  exit: { opacity: 0 },
-  transition: { duration: 0.5 },
-};
-
 export const slideInLeft = {
   initial: { x: -60, opacity: 0 },
   animate: { x: 0, opacity: 1 },

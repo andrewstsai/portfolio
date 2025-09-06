@@ -1,28 +1,34 @@
 import { useState, useCallback } from 'react';
 
+const globalCache: Record<string, string[]> = {};
+const fetchedFolders: Set<string> = new Set();
+
 export const useGallery = () => {
-  const [cache, setCache] = useState<Record<string, string[]>>({});
-
+  const [, forceUpdate] = useState({});
+  
   const fetchGallery = useCallback(async (folder: string): Promise<string[]> => {
-    if (cache[folder]) {
-      return cache[folder];
+    if (fetchedFolders.has(folder)) {
+      return globalCache[folder] || [];
     }
-
     try {
+      console.log(`Fetching ${folder} for the first time...`);
       const res = await fetch(`/api/gallery?folder=${folder}`);
       const data = await res.json();
       const images = data || [];
-      
-      setCache(prev => ({ ...prev, [folder]: images }));
+      fetchedFolders.add(folder);
+      globalCache[folder] = images;
+      forceUpdate({});
       return images;
     } catch (error) {
       console.error(`Error fetching ${folder} images:`, error);
+      fetchedFolders.add(folder);
+      globalCache[folder] = [];
       return [];
     }
-  }, [cache]);
+  }, []);
 
   const getImages = (folder: string): string[] => {
-    return cache[folder] || [];
+    return globalCache[folder] || [];
   };
 
   return { fetchGallery, getImages };

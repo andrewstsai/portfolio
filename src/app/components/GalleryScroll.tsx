@@ -136,11 +136,7 @@ const GalleryScroll = ({ images = [] as string[], height = "h-56", description =
     }, [selectedImage]);
 
     if (!images.length) {
-    return (
-      <div className="p-4 rounded-2xl shadow-lg bg-white/60">
-        <h3 className="text-lg font-semibold">Loading...</h3>
-      </div>
-    );
+      return null;
     }
 
     return (

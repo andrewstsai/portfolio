@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import Image from "next/image";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 const GalleryScroll = ({ images = [] as string[], height = "h-56", description = "Gallery" }: { images?: string[]; height?: string; description?: string; }) => {
     const ref = useRef<HTMLDivElement>(null);
@@ -8,6 +9,7 @@ const GalleryScroll = ({ images = [] as string[], height = "h-56", description =
     const scrollLeft = useRef(0);
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
     const [imageAspectRatio, setImageAspectRatio] = useState<number>(1);
+    const isMobile = useIsMobile();
 
     const doubled = [...images, ...images];
 
@@ -25,7 +27,6 @@ const GalleryScroll = ({ images = [] as string[], height = "h-56", description =
 
     const handleMouseMove = (e: MouseEvent) => {
       if (!isDragging.current) return;
-      e.preventDefault();
       const x = e.pageX - el.offsetLeft;
       const walk = (x - startX.current) * 1.5;
       el.scrollLeft = scrollLeft.current - walk;
@@ -40,14 +41,6 @@ const GalleryScroll = ({ images = [] as string[], height = "h-56", description =
         scrollLeft.current = 0;
         startX.current = e.pageX - el.offsetLeft;
       }
-    };
-
-    const handleWheel = (e: WheelEvent) => {
-      e.preventDefault();
-      el.scrollLeft += e.deltaY;
-      const sectionWidth = el.scrollWidth / 2;
-      if (el.scrollLeft <= 0) el.scrollLeft = sectionWidth;
-      else if (el.scrollLeft >= sectionWidth) el.scrollLeft = 0;
     };
 
     const handleTouchStart = (e: TouchEvent) => {
@@ -85,7 +78,6 @@ const GalleryScroll = ({ images = [] as string[], height = "h-56", description =
     el.addEventListener("mouseup", handleMouseUp);
     el.addEventListener("mouseleave", handleMouseUp);
     el.addEventListener("mousemove", handleMouseMove);
-    el.addEventListener("wheel", handleWheel, { passive: false });
     el.addEventListener("touchstart", handleTouchStart, { passive: false });
     el.addEventListener("touchend", handleTouchEnd);
     el.addEventListener("touchmove", handleTouchMove, { passive: false });
@@ -96,7 +88,6 @@ const GalleryScroll = ({ images = [] as string[], height = "h-56", description =
       el.removeEventListener("mouseup", handleMouseUp);
       el.removeEventListener("mouseleave", handleMouseUp);
       el.removeEventListener("mousemove", handleMouseMove);
-      el.removeEventListener("wheel", handleWheel);
       el.removeEventListener("touchstart", handleTouchStart);
       el.removeEventListener("touchend", handleTouchEnd);
       el.removeEventListener("touchmove", handleTouchMove);
@@ -132,6 +123,18 @@ const GalleryScroll = ({ images = [] as string[], height = "h-56", description =
     return () => document.removeEventListener('keydown', handleEscape);
     }, [selectedImage]);
 
+    useEffect(() => {
+      if (selectedImage) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = 'unset';
+      }
+  
+      return () => {
+        document.body.style.overflow = 'unset';
+      };
+    }, [selectedImage]);
+
     if (!images.length) {
     return (
       <div className="p-4 rounded-2xl shadow-lg bg-white/60">
@@ -145,14 +148,20 @@ const GalleryScroll = ({ images = [] as string[], height = "h-56", description =
       <div className="w-full">
         <div className="flex mx-auto justify-between mb-4 mt-10 px-2">
           <h2 className="text-xl font-semibold">{description}</h2>
-          <p className="text-sm text-gray-600 dark:text-gray-300 transition-colors">Drag or use wheel to scroll • Click to enlarge</p>
+          <p className="text-sm text-gray-600 dark:text-gray-300 transition-colors">
+            {isMobile ? "Drag to scroll • Tap to enlarge" : "Drag to scroll • Click to enlarge"}
+          </p>
         </div>
-        <div ref={ref} className="relative min-h-[${height}] min-w-[${height}] rounded-2xl shadow-2xl bg-[var(--color-light)] dark:bg-[var(--color-dark)] transition-colors p-3 overflow-x-scroll cursor-grab active:cursor-grabbing" style={{scrollbarWidth: 'none', msOverflowStyle: 'none'}}>
+        <div 
+          ref={ref} 
+          className="relative min-h-[${height}] min-w-[${height}] rounded-2xl shadow-2xl bg-[var(--color-light)] dark:bg-[var(--color-dark)] transition-colors p-3 overflow-x-scroll cursor-grab active:cursor-grabbing select-none" 
+          style={{scrollbarWidth: 'none', msOverflowStyle: 'none'}}
+          >
           <div className="flex gap-3">
             {doubled.map((src, i) => (
               <div 
                 key={i} 
-                className={`flex-shrink-0 rounded-2xl min-w-[40vh] min-h-[50vh] overflow-hidden h- [${height}] relative cursor-pointer hover:shadow-lg transition-shadow duration-200`} 
+                className={`flex-shrink-0 rounded-2xl min-w-[40vh] min-h-[50vh] overflow-hidden h- [${height}] relative cursor-pointer transition-shadow duration-200`} 
                 style={{ aspectRatio: 'auto' }}
                 onClick={() => handleImageClick(src)}
               >
@@ -160,11 +169,12 @@ const GalleryScroll = ({ images = [] as string[], height = "h-56", description =
                   src={src} 
                   alt={`gallery-${i}`} 
                   fill
-                  className="object-cover hover:scale-105 transition-transform duration-200" 
+                  className="object-cover transition-transform duration-200" 
                   draggable={false}
                   style={{ objectPosition: 'center' }}
                   sizes="95vw"
                   loading="eager"
+                  priority={i < 6}
                   quality={100}
                 />
               </div>
@@ -181,6 +191,7 @@ const GalleryScroll = ({ images = [] as string[], height = "h-56", description =
         >
           <div 
             className="relative bg-white rounded-2xl overflow-hidden shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
             style={{
               width: imageAspectRatio > 1 
                 ? 'min(95vw, 90vh * ' + imageAspectRatio + ')' 
@@ -197,7 +208,11 @@ const GalleryScroll = ({ images = [] as string[], height = "h-56", description =
             >
               ✕
             </button>
-            <div className="relative w-full h-full">
+            <div 
+              className="relative w-full h-full"
+              onClick={(e) => e.stopPropagation()}
+            >
+              
               <Image
                 src={selectedImage}
                 alt="Enlarged view"

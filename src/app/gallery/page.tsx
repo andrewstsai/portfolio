@@ -2,7 +2,7 @@
 
 import { motion } from 'motion/react';
 import GalleryScroll from '../components/GalleryScroll';
-import { useEffect, useMemo } from 'react'
+import { useEffect } from 'react'
 import { useGallery } from '@/hooks/useGallery';
 
 export default function Gallery() {

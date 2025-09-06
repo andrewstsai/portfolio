@@ -29,7 +29,7 @@ export async function GET(request: NextRequest) {
     }
     
     const files = fs.readdirSync(fullPath);
-    const imageExtensions = ['.jpg', '.jpeg', '.png','.webp','.HEIC', '.JPG'];
+    const imageExtensions = ['.jpg', '.jpeg', '.JPG'];
     const imageFiles = files.filter(file => 
       imageExtensions.some(ext => file.toLowerCase().endsWith(ext))
     );

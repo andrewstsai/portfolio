@@ -11,7 +11,6 @@ export const useGallery = () => {
       return globalCache[folder] || [];
     }
     try {
-      console.log(`Fetching ${folder} for the first time...`);
       const res = await fetch(`/api/gallery?folder=${folder}`);
       const data = await res.json();
       const images = data || [];

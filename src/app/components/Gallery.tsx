@@ -36,9 +36,9 @@ export default function Gallery() {
       >
         Gallery
       </motion.h1>
-      <GalleryScroll images={tripImages} height="60vh" description="Japan/Taiwan via 2024 UTokyo Exchange" />
-      <GalleryScroll images={foodImages} height="60vh" description="Food" />
-      <GalleryScroll images={dogImages} height="60vh" description="Biscuit" />
+      <GalleryScroll images={tripImages} height="50vh" description="Japan/Taiwan via 2024 UTokyo Exchange" />
+      <GalleryScroll images={foodImages} height="50vh" description="Food" />
+      <GalleryScroll images={dogImages} height="50vh" description="Biscuit" />
     </div>
   );
 }

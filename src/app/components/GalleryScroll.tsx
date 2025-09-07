@@ -150,14 +150,14 @@ const GalleryScroll = ({ images = [] as string[], height = "h-56", description =
         </div>
         <div 
           ref={ref} 
-          className="relative min-h-[${height}] min-w-[${height}] rounded-2xl shadow-2xl bg-[var(--color-light)] dark:bg-[var(--color-dark)] transition-colors p-3 overflow-x-scroll cursor-grab active:cursor-grabbing select-none" 
-          style={{scrollbarWidth: 'none', msOverflowStyle: 'none'}}
+          className={`relative min-h-[${height}] min-w-[${height}] rounded-2xl shadow-2xl bg-[var(--color-light)] dark:bg-[var(--color-dark)] transition-colors p-3 overflow-x-scroll cursor-grab active:cursor-grabbing select-none`} 
+          style={{scrollbarWidth: 'none', msOverflowStyle: 'none', minHeight: height, minWidth: height}}
           >
           <div className="flex gap-3">
             {doubled.map((src, i) => (
               <div 
                 key={i} 
-                className={`flex-shrink-0 rounded-2xl min-w-[40vh] min-h-[50vh] overflow-hidden h- [${height}] relative cursor-pointer transition-shadow duration-200`} 
+                className={`flex-shrink-0 rounded-2xl min-w-[40vh] min-h-[50vh] overflow-hidden h-[${height}] relative cursor-pointer transition-shadow duration-200`} 
                 style={{ aspectRatio: 'auto' }}
                 onClick={() => handleImageClick(src)}
               >
@@ -168,7 +168,7 @@ const GalleryScroll = ({ images = [] as string[], height = "h-56", description =
                   className="object-cover transition-transform duration-200" 
                   draggable={false}
                   style={{ objectPosition: 'center' }}
-                  sizes="95vw"
+                  sizes="100vw"
                   loading="eager"
                   priority={i < 6}
                   quality={100}

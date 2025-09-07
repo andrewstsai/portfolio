@@ -52,15 +52,15 @@ export default function Gallery() {
           animate="animate"
         >
           <motion.div variants={fadeInUp}>
-            <GalleryScroll images={tripImages} height="60vh" description="Japan/Taiwan via 2024 UTokyo Exchange" />
+            <GalleryScroll images={tripImages} height="50vh" description="Japan/Taiwan via 2024 UTokyo Exchange" />
           </motion.div>
           
           <motion.div variants={fadeInUp}>
-            <GalleryScroll images={foodImages} height="60vh" description="Food" />
+            <GalleryScroll images={foodImages} height="50vh" description="Food" />
           </motion.div>
           
           <motion.div variants={fadeInUp}>
-            <GalleryScroll images={dogImages} height="60vh" description="Biscuit" />
+            <GalleryScroll images={dogImages} height="50vh" description="Biscuit" />
           </motion.div>
         </motion.div>
       )}

@@ -123,7 +123,9 @@ export default function About() {
             <h3 className="text-xl font-semibold mb-2">Full Stack Developer Intern</h3>
             <p className="text-primary mb-2">Sirinti • June 2025 - Present</p>
             <ul className="text-gray-600 dark:text-gray-300 transition-colors list-disc list-inside space-y-2">
-              <li>Currently building features for the startup&apos;s homepage and dashboard</li>
+              <li>Developed features and components that improved site usability, boosting engagement and increasing time-on-page by 20%</li>
+              <li>Architected scalable RESTful APIs with JWT-based authentication to handle CRUD operations, enabling seamless and
+              secure integration between PostgreSQL, Nest.js backend, and Vite/Next.js frontends</li>
             </ul>
           </motion.div>
 
@@ -135,13 +137,10 @@ export default function About() {
             <h3 className="text-xl font-semibold mb-2">Software Engineer Intern</h3>
             <p className="text-primary mb-2">Cirrus Data Solutions • June - December 2023</p>
             <ul className="text-gray-600 dark:text-gray-300 transition-colors list-disc list-inside space-y-2">
-              <li>Enhanced a web application which employed virtual machines for data migration and testing demonstrations of
-              an enterprise cloud product utilized by 500+ worldwide organizations</li>
-              <li>Improved efficiency for administrative tasks via resolving software bugs and introducing new user-friendly
-              features</li>
-              <li>Consolidated virtual machine management from Azure and AWS platforms onto a unified interface</li>
-              <li>Added tracking of KPIs and metrics that were previously not natively shown by cloud providers, significantly
-              reducing spending</li>
+              <li>Enhanced a cloud migration demo platform used by 100+ global organizations by delivering new UI features across 40+
+              scenarios, improving user experience and simplifying admin tasks</li>
+              <li>Consolidated observability data from Azure Functions and AWS EC2, enabling cross-cloud visibility</li>
+              <li>Implemented KPI and cost-tracking metrics, driving 15% cost savings on infrastructure spend</li>
             </ul>
           </motion.div>
           
@@ -153,12 +152,8 @@ export default function About() {
             <h3 className="text-xl font-semibold mb-2">Frontend Software Engineer Intern</h3>
             <p className="text-primary mb-2">Chirp • February - May 2023</p>
             <ul className="text-gray-600 dark:text-gray-300 transition-colors list-disc list-inside space-y-2">
-              <li>Self-learned HTML, CSS, and PHP to successfully deploy a website for UPenn Wharton Venture Initiation
-              Program startup</li>
-              <li>Coordinated with UX/UI designer to apply code in alignment with Figma designs for website serving B2B/B2C
-              interests</li>
-              <li>Established functional PHP forms to consolidate interested user data to a waitlist based on business strategy
-              requirements</li>
+              <li>Launched a responsive B2B/B2C website that supported the startup&apos;s early-stage growth and visibility</li>
+              <li>Partnered with UI/UX designer to translate Figma layouts to code, preserving accessibility and design intent</li>
             </ul>
           </motion.div>
 
@@ -170,8 +165,9 @@ export default function About() {
             <h3 className="text-xl font-semibold mb-2">Software Team Member</h3>
             <p className="text-primary mb-2">Northeastern Electric Racing • September 2022 - May 2023</p>
             <ul className="text-gray-600 dark:text-gray-300 transition-colors list-disc list-inside space-y-2">
-              <li>Contributed to the development of a project management website used by over 250 members</li>
-              <li>Developed skills in Git, React, TypeScript, Express, and Prisma through Jira tickets</li>
+              <li>Developed new features and resolved user feedback for a project management platform serving 250+ active members,
+              enhancing usability and engagement</li>
+              <li>Resolved bugs and conducted unit testing in React/Express/Prisma stack, ensuring production stability</li>
             </ul>
           </motion.div>
         </motion.div>

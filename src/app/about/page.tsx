@@ -152,7 +152,7 @@ export default function About() {
             <h3 className="text-xl font-semibold mb-2">Frontend Software Engineer Intern</h3>
             <p className="text-primary mb-2">Chirp • February - May 2023</p>
             <ul className="text-gray-600 dark:text-gray-300 transition-colors list-disc list-inside space-y-2">
-              <li>Launched a responsive B2B/B2C website that supported the startup&apos;s early-stage growth and visibility</li>
+              <li>Launched a responsive B2B/B2C website that supported the Wharton VIP startup&apos;s early-stage growth and visibility</li>
               <li>Partnered with UI/UX designer to translate Figma layouts to code, preserving accessibility and design intent</li>
             </ul>
           </motion.div>

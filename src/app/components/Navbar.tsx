@@ -4,6 +4,7 @@ import { SunIcon, MoonIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/out
 import { useTheme } from '@/context/ThemeContext'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
+import Image from 'next/image'
 
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
@@ -26,7 +27,7 @@ export default function Navbar() {
       <div className="container max-w-7xl mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="text-xl font-bold text-primary">
-            {"{AST}"}
+            <Image src="/logo.png" alt="Logo" width={60} height={60} />
           </Link>
           
           <div className="hidden md:flex items-center space-x-8">

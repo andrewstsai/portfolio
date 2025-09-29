@@ -10,9 +10,33 @@ const GalleryScroll = ({ images = [] as string[], height = "h-56", description =
   const scrollLeft = useRef(0);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [imageAspectRatio, setImageAspectRatio] = useState<number>(1);
+  const [visibleRange, setVisibleRange] = useState({ start: 0, end: 3 });
   const isMobile = useIsMobile();
   const clickStartTime = useRef(0);
   const doubled = [...images, ...images];
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const handleScroll = () => {
+      const scrollPosition = el.scrollLeft;
+      const containerWidth = el.offsetWidth;
+      const imageWidth = containerWidth * 0.4;
+      const currentIndex = Math.floor(scrollPosition / imageWidth);
+      const preload = 1;
+
+      setVisibleRange({
+        start: Math.max(0, currentIndex - preload),
+        end: Math.min(doubled.length, currentIndex + Math.ceil(containerWidth / imageWidth) + preload)
+      });
+    };
+
+    el.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    
+    return () => el.removeEventListener('scroll', handleScroll);
+  }, [images.length]);
 
   const handleMouseMove = useCallback((e: MouseEvent) => {
     if (!isDragging.current) return;
@@ -108,7 +132,7 @@ const GalleryScroll = ({ images = [] as string[], height = "h-56", description =
       el.removeEventListener("touchend", handleTouchEnd);
       el.removeEventListener("touchmove", handleTouchMove);
     };
-  }, [images, handleMouseMove, handleTouchMove]);
+  }, [images.length, handleMouseMove, handleTouchMove]);
 
   const handleImageClick = (src: string) => {
     const clickDuration = Date.now() - clickStartTime.current;
@@ -129,19 +153,19 @@ const GalleryScroll = ({ images = [] as string[], height = "h-56", description =
   }, []);
 
   const closeModal = () => {
-  setSelectedImage(null);
-  setImageAspectRatio(1);
+    setSelectedImage(null);
+    setImageAspectRatio(1);
   };
 
   useEffect(() => {
-  const handleEscape = (e: KeyboardEvent) => {
-    if (e.key === 'Escape' && selectedImage) {
-      closeModal();
-    }
-  };
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && selectedImage) {
+        closeModal();
+      }
+    };
 
-  document.addEventListener('keydown', handleEscape);
-  return () => document.removeEventListener('keydown', handleEscape);
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
   }, [selectedImage]);
 
   useEffect(() => {
@@ -161,47 +185,49 @@ const GalleryScroll = ({ images = [] as string[], height = "h-56", description =
   }
 
   return (
-  <>
-    <div className="w-full">
-      <div className="flex mx-auto justify-between mb-4 mt-10 px-2">
-        <h2 className="text-xl font-semibold">{description}</h2>
-        <p className="text-sm text-gray-600 dark:text-gray-300 transition-colors">
-          {isMobile ? "Drag to scroll • Tap to enlarge" : "Drag to scroll • Click to enlarge"}
-        </p>
-      </div>
-      <div 
-        ref={ref} 
-        className={`relative min-h-[${height}] min-w-[${height}] rounded-2xl shadow-2xl bg-[var(--color-light)] dark:bg-[var(--color-dark)] transition-colors p-3 overflow-x-scroll cursor-grab active:cursor-grabbing select-none`} 
-        style={{scrollbarWidth: 'none', msOverflowStyle: 'none', minHeight: height, minWidth: height}}
+    <>
+      <div className="w-full">
+        <div className="flex mx-auto justify-between mb-4 mt-10 px-2">
+          <h2 className="text-xl font-semibold">{description}</h2>
+          <p className="text-sm text-gray-600 dark:text-gray-300 transition-colors">
+            {isMobile ? "Drag to scroll • Tap to enlarge" : "Drag to scroll • Click to enlarge"}
+          </p>
+        </div>
+        <div 
+          ref={ref} 
+          className={`relative min-h-[${height}] min-w-[${height}] rounded-2xl shadow-2xl bg-[var(--color-light)] dark:bg-[var(--color-dark)] transition-colors p-3 overflow-x-scroll cursor-grab active:cursor-grabbing select-none`} 
         >
-        <div className="flex gap-3">
-          {doubled.map((src, i) => (
-            <div 
-              key={i} 
-              className={`flex-shrink-0 rounded-2xl min-w-[40vh] min-h-[50vh] overflow-hidden h-[${height}] relative cursor-pointer transition-shadow duration-200`} 
-              style={{ aspectRatio: 'auto' }}
-              onClick={() => handleImageClick(src)}
-              onMouseEnter={() => handleImageHover(src)}
-              onTouchStart={() => handleImageHover(src)}
-            >
-              <Image 
-                src={src} 
-                alt={`gallery-${(i+1)% images.length}`} 
-                fill
-                className="object-cover transition-transform duration-200" 
-                draggable={false}
-                style={{ objectPosition: 'center' }}
-                sizes="40vw"
-                loading={i < 6 ? "eager" : "lazy"}
-                priority={i < 6}
-                quality={85}
-              />
-            </div>
-          ))}
+          <div className="flex gap-3">
+            {doubled.map((src, i) => {
+              const shouldLoadEagerly = i >= visibleRange.start && i <= visibleRange.end;
+              
+              return (
+                <div 
+                  key={i} 
+                  className={`flex-shrink-0 rounded-2xl min-w-[40vh] min-h-[50vh] overflow-hidden h-[${height}] relative cursor-pointer transition-shadow duration-200`} 
+                  style={{ aspectRatio: 'auto' }}
+                  onClick={() => handleImageClick(src)}
+                  onMouseEnter={() => handleImageHover(src)}
+                  onTouchStart={() => handleImageHover(src)}
+                >
+                  <Image 
+                    src={src} 
+                    alt={`gallery-${(i+1)% images.length}`} 
+                    fill
+                    className="object-cover transition-transform duration-200" 
+                    draggable={false}
+                    style={{ objectPosition: 'center' }}
+                    sizes="40vw"
+                    loading={shouldLoadEagerly ? "eager" : "lazy"}
+                    priority={shouldLoadEagerly}
+                    quality={85}
+                  />
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
-      <style>{`.overflow-x-scroll::-webkit-scrollbar { display: none; }`}</style>
-    </div>
       {selectedImage && (
         <div 
           className="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-4"
@@ -243,6 +269,5 @@ const GalleryScroll = ({ images = [] as string[], height = "h-56", description =
     </>
   );
 }
-
 
 export default GalleryScroll;

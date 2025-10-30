@@ -11,6 +11,15 @@ export const projects: Project[] = [
     image: "/projects/animalfarm.png",
   },
   {
+    title: "Menu Passport",
+    description:
+      "A service using agentic AI and OCR to extract items from foreign menus and enrich them with translations, currency conversion, and images",
+    technologies: ["Python", "LangChain", "GCP"],
+    githubLink: "https://github.com/andrewstsai/menu-passport-backend",
+    demoLink: "https://menu-passport-backend.onrender.com/docs",
+    image: "/projects/menupassport.png",
+  },
+  {
     title: "Portfolio Website",
     description:
       "A simple personal portfolio website showcasing my skills.",

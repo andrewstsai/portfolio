@@ -7,7 +7,7 @@ import Link from 'next/link'
 
 const Hero = () => {
     return (
-        <section className='py-28 container max-w-7xl mx-auto px-4'>
+        <section className='py-18 container max-w-7xl mx-auto px-4'>
             <div className='max-w-3xl mx-auto text-center'>
                 <div className='flex flex-col items-center mb-4'>
                     <Image src="/profile.png" alt="Profile image" width={100} height={100} quality={100} className='rounded-full mb-4 w-43 h-43 object-cover ring-2 ring-primary'/>

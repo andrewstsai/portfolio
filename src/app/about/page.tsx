@@ -26,8 +26,10 @@ export default function About() {
         {...fadeInUp}
       >
         <p className="text-lg text-gray-600 dark:text-gray-300 transition-colors max-w-3xl mx-auto text-center">
-          I&apos;m a passionate and versatile Full Stack Developer specialized in building modern web applications.
-          My experience spans both frontend and backend development, enabling me to build seamless, end-to-end applications.
+          I&apos;m Andrew - a developer passionate about innovation and delivering meaningful software. Flexible and eager to learn, 
+          I thrive in full stack development and embrace new challenges as opportunities to grow and expand my skillset. 
+          {/* I&apos;m a passionate and versatile Full Stack Developer specialized in building modern web applications.
+          My experience spans both frontend and backend development, enabling me to build seamless, end-to-end applications. */}
         </p>
       </motion.section>
 

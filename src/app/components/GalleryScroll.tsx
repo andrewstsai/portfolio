@@ -28,7 +28,7 @@ const GalleryScroll = ({ images = [] as string[], height = "h-56", description =
 
       setVisibleRange({
         start: Math.max(0, currentIndex - preload),
-        end: Math.min(doubled.length, currentIndex + Math.ceil(containerWidth / imageWidth) + preload)
+        end: Math.min(images.length * 2, currentIndex + Math.ceil(containerWidth / imageWidth) + preload)
       });
     };
 

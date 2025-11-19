@@ -11,10 +11,19 @@ export const projects: Project[] = [
     image: "/projects/animalfarm.png",
   },
   {
+    title: "Insta Share",
+    description:
+      "A collaborative file sharing app using WebSockets for real-time updates",
+    technologies: ["Java", "Spring Boot", "Angular", "AWS", "Redis"],
+    githubLink: "https://github.com/andrewstsai/insta-share-backend",
+    demoLink: "https://insta-share-frontend.vercel.app/",
+    image: "/projects/instashare.png",
+  },
+  {
     title: "Menu Passport",
     description:
       "A service using agentic AI and OCR to extract items from foreign menus and enrich them with translations, currency conversion, and images",
-    technologies: ["Python", "LangChain", "GCP"],
+    technologies: ["Python", "FastAPI", "LangChain", "GCP"],
     githubLink: "https://github.com/andrewstsai/menu-passport-backend",
     demoLink: "https://menu-passport-backend.onrender.com/docs",
     image: "/projects/menupassport.png",
@@ -24,7 +33,7 @@ export const projects: Project[] = [
     description:
       "A simple personal portfolio website showcasing my skills.",
     technologies: ["Next.js", "React", "Tailwind CSS", "Framer Motion"],
-    githubLink: "https://github.com",
+    githubLink: "https://github.com/andrewstsai/portfolio",
     demoLink: "",
     image: "/projects/portfolio-website.png",
   },

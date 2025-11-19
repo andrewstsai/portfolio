@@ -26,7 +26,7 @@ export default function Projects() {
           {projects.map((project) => (
             <motion.article
               key={project.title}
-              className="bg-white dark:bg-dark/50 rounded-lg shadow-md p-6"
+              className="bg-white dark:bg-dark/50 rounded-lg shadow-md p-6 flex flex-col h-full"
               variants={fadeInUp}
               {...cardHoverSmall}
             >
@@ -45,7 +45,7 @@ export default function Projects() {
                 {project.title}
               </motion.h3>
               <motion.p 
-                className="text-gray-600 dark:text-gray-300 transition-colors mb-4"
+                className="text-gray-600 dark:text-gray-300 transition-colors mb-4 flex flex-col flex-grow max-h-[90px]"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2 }}
@@ -70,7 +70,7 @@ export default function Projects() {
                 ))}
               </motion.div>
               <motion.div 
-                className="flex gap-4"
+                className="flex gap-4 mt-auto ml-auto"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}

@@ -26,10 +26,8 @@ export default function About() {
         {...fadeInUp}
       >
         <p className="text-lg text-gray-600 dark:text-gray-300 transition-colors max-w-3xl mx-auto text-center">
-          I&apos;m Andrew - a developer passionate about innovation and delivering meaningful software. Flexible and eager to learn, 
-          I thrive in full stack development and embrace new challenges as opportunities to grow and expand my skillset. 
-          {/* I&apos;m a passionate and versatile Full Stack Developer specialized in building modern web applications.
-          My experience spans both frontend and backend development, enabling me to build seamless, end-to-end applications. */}
+          I&apos;m passionate about innovation and delivering meaningful software. Adaptable and eager to learn, 
+          I thrive in full stack development and embrace new challenges as opportunities to grow and expand my skillset.
         </p>
       </motion.section>
 
@@ -58,11 +56,11 @@ export default function About() {
             <FaCode className="h-8 w-8 text-primary mb-4" />
             <h3 className="text-xl font-semibold mb-2">Frontend</h3>
             <ul className="text-gray-600 dark:text-gray-300 transition-colors space-y-2">
-              <li>React / Next.js</li>
+              <li>React</li>
               <li>TypeScript</li>
-              <li>Tailwind</li>
+              <li>Angular</li>
               <li>HTML</li>
-              <li>CSS</li>
+              <li>CSS / Tailwind</li>
             </ul>
           </motion.div>
           
@@ -75,10 +73,10 @@ export default function About() {
             <h3 className="text-xl font-semibold mb-2">Backend</h3>
             <ul className="text-gray-600 dark:text-gray-300 transition-colors space-y-2">
               <li>Node.js</li>
-              <li>Express</li>
               <li>Python</li>
               <li>Java</li>
-              <li>SQL / NoSQL</li>
+              <li>SQL</li>
+              <li>NoSQL</li>
             </ul>
           </motion.div>
           
@@ -90,11 +88,11 @@ export default function About() {
             <FaGraduationCap className="h-8 w-8 text-primary mb-4" />
             <h3 className="text-xl font-semibold mb-2">Tools & Others</h3>
             <ul className="text-gray-600 dark:text-gray-300 transition-colors space-y-2">
-              <li>Git / GitHub</li>
+              <li>Git</li>
               <li>Docker</li>
-              <li>RESTful APIs</li>
-              <li>Agile Methodologies</li>
-              <li>VMware</li>
+              <li>AWS</li>
+              <li>GCP</li>
+              <li>Agile</li>
             </ul>
           </motion.div>
         </motion.div>
@@ -123,7 +121,7 @@ export default function About() {
             {...cardHoverSmall}
           >
             <h3 className="text-xl font-semibold mb-2">Full Stack Developer Intern</h3>
-            <p className="text-primary mb-2">Sirinti • June 2025 - Present</p>
+            <p className="text-primary mb-2">Sirinti • June - September 2025</p>
             <ul className="text-gray-600 dark:text-gray-300 transition-colors list-disc list-inside space-y-2">
               <li>Developed features and components that improved site usability, boosting engagement and increasing time-on-page by 20%</li>
               <li>Architected scalable RESTful APIs with JWT-based authentication to handle CRUD operations, enabling seamless and

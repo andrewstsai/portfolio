@@ -44,6 +44,14 @@ export default function Gallery() {
       >
         Gallery
       </motion.h1>
+      <motion.p 
+        className="text-lg text-gray-600 dark:text-gray-300 mb-24 text-center"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
+        Some photos showcasing my life and passions outside of work
+      </motion.p>
       <AnimatePresence>
       {shouldAnimate && (
         <motion.div 

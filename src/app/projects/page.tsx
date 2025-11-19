@@ -23,8 +23,7 @@ export default function Projects() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        These projects represent key milestones in my journey as a developer, 
-        shaping the skills and experience that have brought me to where I am today.
+        These projects represent key milestones in my journey as a developer that have brought me to where I am today
       </motion.p>
       
       <motion.div 
@@ -36,12 +35,12 @@ export default function Projects() {
         {projects.map((project, index) => (
           <motion.div
             key={index}
-            className="bg-white dark:bg-dark/50 rounded-lg shadow-md overflow-hidden"
+            className="bg-white dark:bg-dark/50 rounded-lg shadow-md overflow-hidden flex flex-col h-full"
             variants={fadeInUp}
             {...cardHoverSmall}
           >
             <motion.div 
-              className="aspect-video bg-gray-200 dark:bg-gray-800"
+              className="aspect-video rounded bg-gray-200 dark:bg-gray-800"
               whileHover={{ scale: 1.05 }}
             >
               <Image
@@ -54,7 +53,7 @@ export default function Projects() {
               />
             </motion.div>
             
-            <div className="p-6">
+            <div className="p-6 flex flex-col flex-grow">
               <motion.h3 
                 className="text-xl font-semibold mb-2"
                 whileHover={{ x: 5 }}
@@ -89,7 +88,7 @@ export default function Projects() {
               </motion.div>
               
               <motion.div 
-                className="flex gap-4"
+                className="flex gap-4 mt-auto ml-auto"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4 }}

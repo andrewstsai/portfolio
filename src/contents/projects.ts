@@ -14,7 +14,7 @@ export const projects: Project[] = [
     title: "Insta Share",
     description:
       "A collaborative file sharing app using WebSockets for real-time updates",
-    technologies: ["Java", "Spring Boot", "Angular", "AWS", "Redis"],
+    technologies: ["Java", "Spring Boot", "Angular", "TypeScript", "AWS", "Redis"],
     githubLink: "https://github.com/andrewstsai/insta-share-backend",
     demoLink: "https://insta-share-frontend.vercel.app/",
     image: "/projects/instashare.png",
@@ -23,9 +23,9 @@ export const projects: Project[] = [
     title: "Menu Passport",
     description:
       "A service using agentic AI and OCR to extract items from foreign menus and enrich them with translations, currency conversion, and images",
-    technologies: ["Python", "FastAPI", "LangChain", "GCP"],
+    technologies: ["Python", "FastAPI", "LangChain", "React", "TypeScript", "GCP"],
     githubLink: "https://github.com/andrewstsai/menu-passport-backend",
-    demoLink: "https://menu-passport-backend.onrender.com/docs",
+    demoLink: "https://menu-passport.vercel.app/",
     image: "/projects/menupassport.png",
   },
   {

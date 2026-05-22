@@ -18,16 +18,16 @@ export default function ExperienceList() {
               className="flex w-full items-baseline justify-between gap-4 py-3 text-left"
               aria-expanded={isOpen}
             >
-              <span className="shrink-0 text-xs tabular-nums text-neutral-500 dark:text-neutral-400">
-                {e.period}
-              </span>
-              <span className="min-w-0 flex-1 text-right">
+              <span className="min-w-0 flex-1 text-left">
                 <span className="block text-sm tracking-tight text-neutral-800 dark:text-neutral-200">
                   {e.company}
                 </span>
                 <span className="block text-xs tracking-tight text-neutral-500 dark:text-neutral-400">
                   {e.role}
                 </span>
+              </span>
+              <span className="shrink-0 text-xs tabular-nums text-neutral-500 dark:text-neutral-400">
+                {e.period}
               </span>
               <span
                 className={`ml-2 shrink-0 text-neutral-400 transition-transform duration-200 dark:text-neutral-500 ${

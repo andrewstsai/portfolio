@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { site } from "@/data/site";
@@ -11,16 +11,15 @@ export default function Nav() {
   const pathname = usePathname();
   const away = pathname !== "/";
 
-  // Drive nav background via JS so it always syncs with theme changes,
-  // regardless of CSS cascade / mobile repaint quirks on fixed elements.
-  const [dark, setDark] = useState(false);
   useEffect(() => {
-    setDark(document.documentElement.classList.contains("dark"));
-    const handler = (e: Event) =>
-      setDark((e as CustomEvent<{ dark: boolean }>).detail.dark);
-    window.addEventListener("themechange", handler);
-    return () => window.removeEventListener("themechange", handler);
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+    window.scrollTo(0, 0);
   }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   const desktopLinks = [
     { href: "/projects", label: away ? "cd /projects" : "cd projects", external: false },
@@ -32,12 +31,16 @@ export default function Nav() {
       <nav
         id="site-nav"
         aria-label="Main navigation"
-        className={`fixed top-0 left-0 right-0 z-40 backdrop-blur-sm transition-colors duration-200 ${dark ? "bg-neutral-950/80" : "bg-white/80"}`}
+        className="fixed top-0 left-0 right-0 z-40 bg-white/80 backdrop-blur-sm transition-colors duration-200 dark:bg-neutral-950/80"
       >
         <div className="mx-auto flex w-full max-w-screen-sm items-center justify-between px-2 py-4 md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-2xl">
           <Link
             href="/"
             className="group relative z-50 pl-2 text-sm tracking-tight text-neutral-900 dark:text-neutral-100"
+            onClick={() => {
+              const toggle = document.getElementById("menu-toggle");
+              if (toggle?.classList.contains("open")) toggle.click();
+            }}
           >
             <span aria-label={site.shellPrompt}>{site.shellPrompt}</span>
             <span

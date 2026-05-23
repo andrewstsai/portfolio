@@ -55,6 +55,7 @@ export default function MiniTerminal() {
   const [input, setInput] = useState("");
   const [suggestion, setSuggestion] = useState<string | null>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   // Command history — refs so navigation doesn't trigger re-renders
   const historyRef = useRef<string[]>([]);
@@ -62,7 +63,10 @@ export default function MiniTerminal() {
   const draftRef = useRef("");     // saved input before ArrowUp
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    // Scroll the terminal's internal container only — NOT the page.
+    // `scrollIntoView` would bubble up and scroll the document.
+    const el = scrollRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
   }, [lines]);
 
   // Update ghost-text suggestion whenever input changes
@@ -134,7 +138,7 @@ export default function MiniTerminal() {
         Terminal
       </p>
 
-      <div className="no-scrollbar min-h-0 flex-1 overflow-y-auto text-xs leading-relaxed">
+      <div ref={scrollRef} className="no-scrollbar min-h-0 flex-1 overflow-y-auto text-xs leading-relaxed">
         {lines.map((line, i) => (
           <div key={i} className="flex gap-2">
             {line.type === "input" && (

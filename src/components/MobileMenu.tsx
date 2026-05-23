@@ -29,23 +29,12 @@ function Trigger() {
 
 function Panel() {
   const [open, setOpen] = useState(false);
-  const [dark, setDark] = useState(false);
   const pathname = usePathname();
   const away = pathname !== "/";
 
   useEffect(() => {
-    setDark(document.documentElement.classList.contains("dark"));
-    const handler = (e: Event) => {
-      setDark((e as CustomEvent<{ dark: boolean }>).detail.dark);
-      // Close the menu on theme change: the dark/light className swap on the
-      // menu div causes React to reconcile and wipe the dynamically-added
-      // "open" class, so the panel closes visually but the button keeps the X.
-      // Explicitly resetting open state keeps them in sync.
-      setOpen(false);
-    };
-    window.addEventListener("themechange", handler);
-    return () => window.removeEventListener("themechange", handler);
-  }, []);
+    setOpen(false);
+  }, [pathname]);
 
   const entries = [
     { href: "/projects", label: away ? "cd /projects" : "cd projects", external: false },
@@ -66,6 +55,7 @@ function Panel() {
 
     toggle.addEventListener("click", onToggle);
     menu.querySelectorAll("a").forEach((a) => a.addEventListener("click", close));
+    window.addEventListener("closemobilemenu", close);
 
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") close();
@@ -74,6 +64,7 @@ function Panel() {
 
     return () => {
       toggle.removeEventListener("click", onToggle);
+      window.removeEventListener("closemobilemenu", close);
       document.removeEventListener("keydown", onKey);
     };
   }, []);
@@ -103,7 +94,7 @@ function Panel() {
   return (
     <div
       id="mobile-menu"
-      className={`pointer-events-none fixed inset-0 z-30 flex flex-col opacity-0 transition-colors transition-opacity duration-200 ${dark ? "bg-neutral-950" : "bg-white"}`}
+      className="pointer-events-none fixed inset-0 z-30 flex flex-col bg-white opacity-0 transition-[opacity,background-color] duration-200 dark:bg-neutral-950"
       aria-hidden="true"
       style={{ paddingTop: "env(safe-area-inset-top, 0px)" }}
     >
@@ -118,7 +109,7 @@ function Panel() {
               href={entry.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="menu-link border-t border-neutral-200 py-4 font-mono text-2xl font-medium tracking-tight text-neutral-800 transition-colors hover:text-neutral-500 dark:border-neutral-800 dark:text-neutral-100 dark:hover:text-neutral-400"
+              className="menu-link border-t border-neutral-200 py-4 font-mono text-2xl font-medium tracking-tight text-neutral-800 transition-colors duration-200 hover:text-neutral-500 dark:border-neutral-800 dark:text-neutral-100 dark:hover:text-neutral-400"
             >
               {entry.label}
             </a>
@@ -126,7 +117,7 @@ function Panel() {
             <Link
               key={entry.href}
               href={entry.href}
-              className="menu-link border-t border-neutral-200 py-4 font-mono text-2xl font-medium tracking-tight text-neutral-800 transition-colors hover:text-neutral-500 dark:border-neutral-800 dark:text-neutral-100 dark:hover:text-neutral-400"
+              className="menu-link border-t border-neutral-200 py-4 font-mono text-2xl font-medium tracking-tight text-neutral-800 transition-colors duration-200 hover:text-neutral-500 dark:border-neutral-800 dark:text-neutral-100 dark:hover:text-neutral-400"
             >
               {entry.label}
             </Link>

@@ -57,7 +57,7 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
-        <main className="site-main mx-auto w-full max-w-screen-sm min-h-[100lvh] pb-[calc(env(safe-area-inset-bottom)+1rem)] md:max-w-screen-md md:min-h-0 md:pb-0 lg:max-w-screen-lg xl:max-w-screen-2xl md:flex md:h-dvh md:flex-col">
+        <main className="site-main mx-auto w-full max-w-screen-sm min-h-[100lvh] pb-[env(safe-area-inset-bottom)] md:max-w-screen-md md:min-h-0 md:pb-0 lg:max-w-screen-lg xl:max-w-screen-2xl md:flex md:h-dvh md:flex-col">
           <Nav />
           <div aria-hidden="true" className="h-[57px] shrink-0" />
           <div id="main-content" tabIndex={-1} className="outline-none" />

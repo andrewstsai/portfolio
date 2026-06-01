@@ -64,7 +64,7 @@ export default function ContactList() {
               href={c.href}
               target={isMail ? undefined : "_blank"}
               rel={isMail ? undefined : "noopener noreferrer"}
-              className="group flex items-center justify-between gap-4 py-3"
+              className="group flex items-center justify-between gap-4 py-3 transition-colors hover:text-[var(--accent)]"
             >
               <span className="flex shrink-0 items-center gap-2">
                 <span className="text-neutral-400 dark:text-neutral-500">
@@ -83,7 +83,7 @@ export default function ContactList() {
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
                   fill="currentColor"
-                  className="h-3.5 w-3.5 shrink-0 text-neutral-300 transition-colors group-hover:text-neutral-600 dark:text-neutral-600 dark:group-hover:text-neutral-300"
+                  className="h-3.5 w-3.5 shrink-0 text-neutral-300 transition-colors group-hover:text-[var(--accent)] dark:text-neutral-600 dark:group-hover:text-[var(--accent)]"
                 >
                   <path
                     fillRule="evenodd"

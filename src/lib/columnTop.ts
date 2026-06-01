@@ -1,8 +1,5 @@
 import type { Picture } from "@/data/pictures";
 
-// Greedy column-fill simulation using orientation height ratios.
-// Returns the set of array indices that land in the first `rows` rows
-// of each column — matches what CSS columns does internally.
 export function columnTopIndices(
   pics: Picture[],
   cols: number,

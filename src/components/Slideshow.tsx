@@ -18,7 +18,6 @@ export default function Slideshow({ projects, intervalMs = 6000 }: Props) {
   const prev = () => setActive((i) => (i - 1 + count) % count);
   const next = () => setActive((i) => (i + 1) % count);
 
-  // Pause auto-rotation while hovering
   const hoverRef = useRef(hovered);
   hoverRef.current = hovered;
 
@@ -51,7 +50,7 @@ export default function Slideshow({ projects, intervalMs = 6000 }: Props) {
             }`}
           >
             <div className="shrink-0">
-              <p className="text-xs uppercase tracking-widest text-neutral-800 dark:text-neutral-200">
+              <p className="text-xs uppercase font-semibold tracking-widest text-neutral-800 dark:text-neutral-200">
                 Featured Projects · {p.title}
               </p>
               <p className="mt-1 line-clamp-2 text-xs tracking-tight text-neutral-400 dark:text-neutral-500">
@@ -66,7 +65,6 @@ export default function Slideshow({ projects, intervalMs = 6000 }: Props) {
         );
       })}
 
-      {/* Prev / next arrows — appear on hover */}
       <button
         type="button"
         onClick={(e) => { e.preventDefault(); prev(); }}
@@ -93,7 +91,6 @@ export default function Slideshow({ projects, intervalMs = 6000 }: Props) {
         </svg>
       </button>
 
-      {/* Dot indicators */}
       <div className="absolute inset-x-0 bottom-3 z-10 flex justify-center gap-1.5">
         {projects.map((_, i) => (
           <button
@@ -103,7 +100,7 @@ export default function Slideshow({ projects, intervalMs = 6000 }: Props) {
             aria-label={`Go to slide ${i + 1}`}
             className={`h-1.5 w-1.5 rounded-full transition-colors ${
               i === active
-                ? "bg-neutral-400 dark:bg-neutral-400"
+                ? "bg-[var(--accent)]"
                 : "bg-neutral-200 dark:bg-neutral-700"
             }`}
           />

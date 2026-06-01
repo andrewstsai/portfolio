@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-/* Class-based dark mode — toggled by adding .dark to <html> */
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
@@ -33,13 +32,41 @@ body {
   font-family: var(--font-sans);
 }
 
-/* ---------- Page container ---------- */
+:root {
+  --accent: #059669;
+}
+.dark {
+  --accent: #34d399;
+}
+
+@keyframes pulse-accent {
+  0%, 100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 0%, transparent);
+  }
+}
+
+::selection {
+  background-color: color-mix(in srgb, var(--accent) 30%, transparent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.terminal-input:focus-visible {
+  outline: none;
+}
+
 .site-main {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
 }
 
-/* ---------- Bento grid ---------- */
 .bento {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -47,8 +74,6 @@ body {
   grid-auto-rows: minmax(180px, auto);
 }
 
-/* On desktop the bento is a flex-1 child with an explicit template —
-   grid-auto-rows would fight the fr units, so disable its minimum. */
 @media (min-width: 768px) {
   .bento {
     grid-auto-rows: auto;
@@ -67,7 +92,6 @@ body {
   }
 }
 
-/* ---------- Reveal-on-scroll ---------- */
 .reveal {
   opacity: 0;
   transform: translateY(12px);
@@ -88,7 +112,6 @@ body {
   }
 }
 
-/* ---------- Cursor blink (terminal brand) ---------- */
 @keyframes cursorBlink {
   0%, 49% { opacity: 1; }
   50%, 100% { opacity: 0; }
@@ -97,7 +120,6 @@ body {
   animation: cursorBlink 1s steps(1, end) infinite;
 }
 
-/* ---------- Mobile fullscreen menu transitions ---------- */
 #mobile-menu.open {
   opacity: 1;
   pointer-events: auto;
@@ -118,7 +140,6 @@ body {
 #mobile-menu.open .menu-link:nth-child(5) { transition-delay: 220ms; }
 #mobile-menu.open .menu-link:nth-child(6) { transition-delay: 260ms; }
 
-/* Hamburger morph */
 #menu-toggle.open .hamburger-bar:nth-child(1) {
   transform: translateY(4.5px) rotate(45deg);
 }
@@ -130,7 +151,6 @@ body.menu-open {
   overflow: hidden;
 }
 
-/* ---------- Photo fade-in ---------- */
 .photo-fade {
   opacity: 0;
   transition: opacity 500ms ease;
@@ -139,7 +159,6 @@ body.menu-open {
   opacity: 1;
 }
 
-/* ---------- Hide scrollbar (keep scroll behaviour) ---------- */
 .no-scrollbar {
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -148,7 +167,6 @@ body.menu-open {
   display: none;
 }
 
-/* ---------- Misc ---------- */
 .cursor-alias {
   cursor: alias;
 }

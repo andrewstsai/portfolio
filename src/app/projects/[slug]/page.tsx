@@ -79,7 +79,6 @@ export default async function ProjectPage({
         />
       </div>
 
-      {/* Structured sections */}
       {project.sections && (
         <div className="mt-12 max-w-prose space-y-10">
           <section>
@@ -115,7 +114,6 @@ export default async function ProjectPage({
         </div>
       )}
 
-      {/* Fallback to plain body if no sections */}
       {!project.sections && project.body && (
         <div className="mt-10 max-w-prose text-sm leading-relaxed tracking-tight text-neutral-700 dark:text-neutral-300">
           {project.body}

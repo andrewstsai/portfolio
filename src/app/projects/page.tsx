@@ -14,7 +14,7 @@ export default function ProjectsIndex() {
           className="font-serif text-4xl font-extralight text-neutral-900 dark:text-neutral-100 lg:text-5xl"
           style={{ letterSpacing: "-0.05em", lineHeight: "109%" }}
         >
-          Things I&apos;ve built recently.
+          Things I&apos;ve built recently
         </h1>
       </section>
 

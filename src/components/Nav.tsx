@@ -45,11 +45,10 @@ export default function Nav() {
             <span aria-label={site.shellPrompt}>{site.shellPrompt}</span>
             <span
               aria-hidden="true"
-              className="ml-1 inline-block h-[0.85em] w-[0.55em] translate-y-[0.1em] bg-neutral-900 opacity-0 group-hover:opacity-100 cursor-blink dark:bg-neutral-100"
+              className="ml-1 inline-block h-[0.85em] w-[0.55em] translate-y-[0.1em] bg-neutral-900 dark:bg-neutral-100 opacity-0 group-hover:opacity-100 cursor-blink"
             />
           </Link>
 
-          {/* Desktop links + theme toggle */}
           <div className="hidden items-center gap-1 text-sm tracking-tight md:flex">
             {desktopLinks.map((link, i) => (
               <span key={link.href} className="flex items-center gap-1">
@@ -61,14 +60,14 @@ export default function Nav() {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="cursor-alias rounded px-2 py-1 font-mono text-xs text-neutral-400 transition-colors hover:text-neutral-900 dark:hover:text-neutral-100"
+                    className="cursor-alias rounded px-2 py-1 font-mono text-xs text-neutral-400 transition-colors hover:text-[var(--accent)]"
                   >
                     {link.label}
                   </a>
                 ) : (
                   <Link
                     href={link.href}
-                    className="rounded px-2 py-1 font-mono text-xs text-neutral-400 transition-colors hover:text-neutral-900 dark:hover:text-neutral-100"
+                    className="rounded px-2 py-1 font-mono text-xs text-neutral-400 transition-colors hover:text-[var(--accent)]"
                   >
                     {link.label}
                   </Link>

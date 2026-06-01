@@ -6,10 +6,6 @@ type Props = {
   priority?: boolean;
 };
 
-/**
- * A faux browser window: titlebar with three traffic-light circles, then an
- * image filling the body. Used by the projects slideshow.
- */
 export default function BrowserMock({ src, alt, priority }: Props) {
   return (
     <div className="flex h-full w-full flex-col overflow-hidden rounded-t-xl border border-neutral-200/60 shadow-[0_16px_48px_-8px_rgba(0,0,0,0.18)]">

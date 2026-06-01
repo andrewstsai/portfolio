@@ -2,10 +2,6 @@
 
 import { useEffect } from "react";
 
-/**
- * Mount once on a page. Finds every `.reveal` element and toggles `.visible`
- * via IntersectionObserver, with a small stagger per element.
- */
 export default function Reveal() {
   useEffect(() => {
     const els = Array.from(document.querySelectorAll<HTMLElement>(".reveal"));

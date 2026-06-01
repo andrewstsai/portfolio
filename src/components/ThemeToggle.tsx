@@ -65,7 +65,6 @@ export default function ThemeToggle() {
   };
 
   if (!mounted) {
-    // Placeholder keeps layout stable during SSR
     return <span className="h-7 w-7" />;
   }
 

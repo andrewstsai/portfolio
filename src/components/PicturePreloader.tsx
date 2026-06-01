@@ -2,8 +2,6 @@
 
 import { useEffect } from "react";
 
-// Track which <img> elements have already been warmed in this session.
-// WeakSet so unmounted elements can be GC'd; HTTP cache handles real dedup.
 const warmed = new WeakSet<HTMLImageElement>();
 
 export default function PicturePreloader() {
@@ -13,9 +11,6 @@ export default function PicturePreloader() {
     const warm = (img: HTMLImageElement) => {
       if (warmed.has(img) || img.complete) return;
       warmed.add(img);
-      // Build a parallel Image with the SAME srcset/sizes/src that Next.js
-      // Image rendered, so the browser fetches the exact /_next/image URL
-      // the visible <img> will use and the HTTP cache hits when it appears.
       const w = new window.Image();
       if (img.sizes) w.sizes = img.sizes;
       if (img.srcset) w.srcset = img.srcset;
@@ -38,8 +33,6 @@ export default function PicturePreloader() {
           observer.unobserve(entry.target);
         }
       },
-      // Big lookahead — start the fetch well before native lazy loading
-      // (~1250px in Chrome) so the image is ready by the time it scrolls in.
       { rootMargin: "1500px 0px" }
     );
 

@@ -15,11 +15,8 @@ export default function PicturesPage() {
           className="font-serif text-4xl font-extralight text-neutral-900 dark:text-neutral-100 lg:text-5xl"
           style={{ letterSpacing: "-0.05em", lineHeight: "109%" }}
         >
-          Pictures
+          A small view into my life off the clock
         </h1>
-        <p className="mt-3 max-w-prose text-sm tracking-tight text-neutral-500 dark:text-neutral-400">
-          A small view into my life outside work
-        </p>
       </section>
 
       <div className="mt-10 grid grid-cols-2 gap-3 px-2 lg:grid-cols-4">

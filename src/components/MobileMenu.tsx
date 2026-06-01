@@ -98,7 +98,6 @@ function Panel() {
       aria-hidden="true"
       style={{ paddingTop: "env(safe-area-inset-top, 0px)" }}
     >
-      {/* Spacer to clear the nav bar */}
       <div className="h-[57px] shrink-0" />
 
       <nav aria-label="Site navigation" className="flex flex-col px-6 pt-8">

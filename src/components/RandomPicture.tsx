@@ -12,12 +12,10 @@ export default function RandomPicture() {
   const [idx, setIdx] = useState<number | null>(null);
   const [visible, setVisible] = useState(true);
 
-  // Pick a random starting photo on mount
   useEffect(() => {
     setIdx(Math.floor(Math.random() * pool.length));
   }, []);
 
-  // Cycle to a new random (non-repeating) photo every ROTATE_MS
   useEffect(() => {
     if (pool.length <= 1) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -52,9 +50,7 @@ export default function RandomPicture() {
         className={`object-cover transition-opacity duration-500 ${visible ? "opacity-100" : "opacity-0"}`}
         unoptimized
       />
-      {/* Hover overlay */}
       <div className="absolute inset-0 bg-black/0 transition-colors duration-200 group-hover:bg-black/30" />
-      {/* Label */}
       <div className="absolute inset-x-0 bottom-0 flex translate-y-1 items-center justify-between px-4 py-3 opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
         <span className="text-xs font-medium uppercase tracking-widest text-white">Pictures</span>
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

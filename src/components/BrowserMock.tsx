@@ -8,7 +8,7 @@ type Props = {
 
 export default function BrowserMock({ src, alt, priority }: Props) {
   return (
-    <div className="flex h-full w-full flex-col overflow-hidden rounded-t-xl border border-neutral-200/60 shadow-[0_16px_48px_-8px_rgba(0,0,0,0.18)]">
+    <div className="flex h-full w-full flex-col overflow-hidden rounded-t-xl shadow-[0_16px_48px_-8px_rgba(0,0,0,0.18)]">
       <svg
         className="block w-full"
         viewBox="0 0 1288 55"
